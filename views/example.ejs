@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personajes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Get Schwifty', 'Comic Sans MS', cursive, sans-serif;
+            background: #1b1b1b url('https://wallpapercat.com/w/full/8/3/d/46646-1080x1920-samsung-full-hd-rick-and-morty-wallpaper-image.jpg') no-repeat center center/cover;
+            color: #00ff00;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
+            box-shadow: 0 0 10px #ff00ff;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        h2, h1 {
+            margin: 0;
+            text-shadow: 0 0 10px #ff00ff;
+            color: #00ff00;
+        }
+
+        h2 a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        h2 a:hover {
+            color: #ff00ff;
+        }
+
+        .social-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: #00ff00;
+            text-decoration: none;
+            font-size: 1.5em;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ff00ff;
+        }
+
+        main {
+            margin-top: 120px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 18px;
+            width: 80%;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 0 20px #ff00ff;
+            justify-items: center;
+        }
+
+        article {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 3px solid #00ff00;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s;
+        }
+
+        article:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #ff00ff;
+        }
+
+        .imagen-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        h2 {
+            margin: 10px 0;
+            font-size: 1.5em;
+            text-shadow: 0 0 5px #00ff00;
+        }
+
+        span {
+            color: #ff00ff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <% if (typeof username !== 'undefined') { %>
+                <div class="readme-container">
+                    <div class="readme-header">
+                        <h2><a href="#" id="readme-link">README</a></h2>
+                    </div>
+                    <div class="readme-content">
+                        <p>Welcome! Here you can:</p>
+                        <ul>
+                            <li>Explore characters</li>
+                            <li>View character details</li>
+                            <li>Share your opinion about each one</li>
+                        </ul>
+                    </div>
+                </div>
+                <h1>Welcome <%= username %> to the world of Rick and Morty</h1>
+                <ul class="social-links">
+                    <li><a href="https://www.linkedin.com/in/sebastian-zambrano-097200277/" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                    <li><a href="https://www.instagram.com/ssebastian_zambrano/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://www.github.com/sebsatian-A-zambrano" target="_blank"><i class="fab fa-github"></i></a></li>
+                    <li><a href="https://api.whatsapp.com/send?phone=5514991246031" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+                </ul>
+                <!-- Add logout button -->
+                <a href="/logout" class="logout-button">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            <% } else { %>
+                <h1>Welcome to the world of Rick and Morty</h1>
+            <% } %>
+        </div>
+    </header>
+    <main>
+        <!-- Centralize characters -->
+    </main>
+    <script>
+        function getCharacters(done) {
+            fetch('https://rickandmortyapi.com/api/character/')
+                .then(response => response.json())
+                .then(data => done(data.results));
+        }
+
+        getCharacters(data => {
+            data.forEach(personajes => {
+                const article = document.createElement('article');
+                article.innerHTML = `
+                    <div class="imagen-container">
+                        <img src="${personajes.image}" alt="${personajes.name}">
+                    </div>
+                    <h2>${personajes.name}</h2>
+                    <span>${personajes.status}</span>
+                `;
+                document.querySelector('main').appendChild(article);
+            });
+        });
+    </script>
+
+    <style>
+        /* README Styles */
+        .readme-container {
+            position: relative;
+            z-index: 1000;
+        }
+
+        .readme-header h2 {
+            color: #00ff00;
+            text-shadow: 0 0 10px #ff00ff;
+            cursor: pointer;
+        }
+
+        .readme-content {
+            max-height: 0;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #00ff00;
+            border-radius: 8px;
+            padding: 0 1rem;
+            margin-top: 10px;
+            transition: max-height 0.5s ease-out;
+            position: absolute;
+            width: 300px;
+        }
+
+        .readme-content p {
+            color: #00ff00;
+            margin: 1rem 0;
+        }
+
+        .readme-content ul {
+            color: #ff00ff;
+            padding-left: 1.5rem;
+        }
+
+        .readme-container.active .readme-content {
+            max-height: 500px;
+            padding: 1rem;
+        }
+    </style>
+
+    <script>
+        const readmeContainer = document.querySelector('.readme-container');
+        const readmeLink = document.getElementById('readme-link');
+
+        readmeLink?.addEventListener('click', (e) => {
+            e.preventDefault();
+            readmeContainer.classList.toggle('active');
+        });
+
+        // Cerrar el menú al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (!readmeContainer.contains(e.target)) {
+                readmeContainer.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
+
+<style>
+    .logout-button {
+        background: linear-gradient(45deg, #00ff00, #00cc00);
+        color: #000;
+        padding: 12px 25px;
+        border: 2px solid #ff00ff;
+        border-radius: 25px;
+        text-decoration: none;
+        font-family: 'Get Schwifty', 'Comic Sans MS', cursive, sans-serif;
+        text-shadow: 0 0 10px #ff00ff;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .logout-button:hover {
+        background: linear-gradient(45deg, #ff00ff, #cc00cc);
+        color: #00ff00;
+        transform: scale(1.05);
+        box-shadow: 0 0 15px #ff00ff;
+    }
+
+    @media (max-width: 1000px) {
+        .header-content {
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h1 {
+            order: -1;
+            width: 100%;
+            text-align: center;
+        }
+
+        .logout-button {
+            padding: 10px 20px;
+            font-size: 0.9em;
+            margin-left: auto;
+        }
+
+        main {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+</style>
