@@ -4,7 +4,8 @@
 The Rick and Morty Character Explorer is a web application that allows users to explore characters from the popular Rick and Morty TV show. It provides a visually appealing interface with a Rick and Morty - themed design, and it fetches character data from the Rick and Morty API.
 
 ## Screenshots
-![Screenshot of the application](insert_screenshot_url_here)
+![image](https://github.com/user-attachments/assets/db8c619a-e62c-459c-a300-1bfd8af2787b)
+
 
 ## Technologies Used
 
