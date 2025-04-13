@@ -30,7 +30,7 @@ The Rick and Morty Character Explorer is a web application that allows users to 
 ## Installation
 1. Clone the repository to your local machine:
 ```bash
-git clone <repository_url>
+git clone https://github.com/sebsatian-A-zambrano/Login-api-express
 ```
 2. Navigate to the project directory:
 ```bash
